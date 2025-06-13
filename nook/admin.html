@@ -476,7 +476,6 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
             
-            // Şifre kontrolü: ilk 3 harf + 123
             const expectedPassword = username.substring(0, 3) + '123';
             
             if (username && password === expectedPassword) {
