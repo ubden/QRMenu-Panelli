@@ -334,7 +334,11 @@
                     contactEl.innerHTML += `<a href="tel:${data.general.phoneNumber}"><i class="fa-solid fa-phone"></i> ${data.general.phoneNumber}</a>`;
                 }
                 if (data.general.socialMedia) {
-                    contactEl.innerHTML += `<a href="${data.general.socialMedia}" target="_blank"><i class="fa-brands fa-instagram"></i> ${data.general.socialMedia}</a>`;
+                    const social = data.general.socialMedia;
+                    const url = /^https?:\/\//.test(social)
+                        ? social
+                        : `https://instagram.com/${social.replace(/^@/, '')}`;
+                    contactEl.innerHTML += `<a href="${url}" target="_blank"><i class="fa-brands fa-instagram"></i> ${social}</a>`;
                 }
             }
             
