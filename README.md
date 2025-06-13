@@ -9,8 +9,8 @@ Bu repoda basit bir **QR kodlu menü sistemi** bulunmaktadır. `nook` klasörü 
 
 ## Kullanım
 1. Menü sayfasını görüntülemek için `nook/nook.html` dosyasını tarayıcınızda açın. Eğer menü verisini değiştirmek isterseniz aynı klasördeki `nook.json` dosyasını düzenleyebilirsiniz.
-2. Yönetim paneli için `nook/admin.html` dosyasını açın. Kullanıcı adı ve kullanıcı adının ilk üç harfi + `123` şeklindeki şifre ile giriş yapılabilir. Düzenlemelerin ardından verileri JSON olarak indirip sunucunuza yükleyebilirsiniz.
-3. Proje sadece statik dosyalardan oluştuğu için herhangi bir sunucu kurulumu gerektirmez; dosyaları bir web sunucusuna kopyalamanız yeterlidir.
+2. Yönetim paneli için `nook/admin.html` dosyasını açın. Kullanıcı adı ve kullanıcı adının ilk üç harfi + `123` şeklindeki şifre ile giriş yapılabilir. "Kaydet" butonu, değişiklikleri `save-menu.php` aracılığıyla doğrudan sunucuya yazar.
+3. Menü verisini kaydedebilmek için sunucunun PHP çalıştırabiliyor olması gerekir; aksi halde dosyaları statik olarak barındırabilirsiniz.
 
 ## Demo
 Tanıtım için hazırlanan açıklayıcı sayfaya kök dizindeki `index.html` dosyasından ulaşabilirsiniz.
