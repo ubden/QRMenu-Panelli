@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restoran Menüsü</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .menu-header {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4a1 100%);
+            color: #1e1e1e;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: shimmer 20s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .menu-header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d4af37, #f4e4a1, #d4af37);
+            transform: translateX(-100%);
+            animation: slideIn 3s ease-in-out infinite;
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .menu-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            color: #d4af37;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+
+        .item-name {
+            font-size: 1.1em;
+            color: #f0f0f0;
+            flex: 1;
+        }
+
+        .item-price {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1em;
+            min-width: 80px;
+            text-align: right;
+        }
+
+        .sub-item {
+            margin-left: 20px;
+            font-size: 0.95em;
+            color: #b0b0b0;
+            font-style: italic;
+        }
+
+        .special-section {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(244, 228, 161, 0.1) 100%);
+        }
+
+        .flavor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .flavor-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .flavor-item:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #d4af37;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            text-align: center;
+            color: #ff6b6b;
+            padding: 50px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .menu-header h1 {
+                font-size: 2em;
+            }
+            
+            .menu-content {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="menu-header">
+            <h1 id="restaurantName">MENÜ</h1>
+        </div>
+        
+        <div class="menu-content" id="menuContent">
+            <div class="loading">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the filename without extension
+        function getFileName() {
+            const path = window.location.pathname;
+            const filename = path.split('/').pop();
+            return filename.split('.').slice(0, -1).join('.');
+        }
+
+        // Load menu data from JSON
+        async function loadMenuData() {
+            const fileName = getFileName() || 'menu';
+            const jsonFile = `${fileName}.json`;
+            
+            try {
+                const response = await fetch(jsonFile);
+                if (!response.ok) {
+                    throw new Error('JSON dosyası bulunamadı');
+                }
+                
+                const data = await response.json();
+                renderMenu(data);
+            } catch (error) {
+                console.error('Error loading menu:', error);
+                document.getElementById('menuContent').innerHTML = `
+                    <div class="error-message">
+                        Menü yüklenirken bir hata oluştu.<br>
+                        ${jsonFile} dosyası bulunamadı.
+                    </div>
+                `;
+            }
+        }
+
+        // Render menu from data
+        function renderMenu(data) {
+            // Update restaurant name
+            if (data.restaurant && data.restaurant.name) {
+                document.getElementById('restaurantName').textContent = data.restaurant.name;
+            }
+            
+            // Clear content
+            const menuContent = document.getElementById('menuContent');
+            menuContent.innerHTML = '';
+            
+            // Render categories
+            data.categories.forEach(category => {
+                const section = createMenuSection(category);
+                menuContent.appendChild(section);
+            });
+        }
+
+        // Create menu section
+        function createMenuSection(category) {
+            const section = document.createElement('div');
+            section.className = 'menu-section';
+            
+            // Special section for Nargile
+            if (category.name.toLowerCase().includes('nargile')) {
+                section.className += ' special-section';
+            }
+            
+            // Section title
+            const title = document.createElement('h2');
+            title.className = 'section-title';
+            title.textContent = category.name;
+            section.appendChild(title);
+            
+            // Items
+            if (category.items && category.items.length > 0) {
+                category.items.forEach(item => {
+                    // Item container
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'menu-item';
+                    
+                    // Item name
+                    const itemName = document.createElement('span');
+                    itemName.className = 'item-name';
+                    itemName.textContent = item.name;
+                    
+                    // Item price
+                    const itemPrice = document.createElement('span');
+                    itemPrice.className = 'item-price';
+                    itemPrice.textContent = `${item.price} TL`;
+                    
+                    menuItem.appendChild(itemName);
+                    menuItem.appendChild(itemPrice);
+                    section.appendChild(menuItem);
+                    
+                    // Description if exists
+                    if (item.description) {
+                        const desc = document.createElement('div');
+                        desc.className = 'sub-item';
+                        desc.textContent = item.description;
+                        section.appendChild(desc);
+                        
+                        // Special handling for Nargile flavors
+                        if (category.name.toLowerCase().includes('nargile') && 
+                            item.name.toLowerCase().includes('meyveli')) {
+                            renderFlavorGrid(section, item.description);
+                        }
+                    }
+                });
+            }
+            
+            return section;
+        }
+
+        // Render flavor grid for Nargile
+        function renderFlavorGrid(section, description) {
+            // Remove the text description
+            const lastSubItem = section.querySelector('.sub-item:last-child');
+            if (lastSubItem) {
+                lastSubItem.remove();
+            }
+            
+            // Create flavor grid
+            const flavorGrid = document.createElement('div');
+            flavorGrid.className = 'flavor-grid';
+            
+            // Split flavors
+            const flavors = description.split(',').map(f => f.trim());
+            
+            flavors.forEach(flavor => {
+                const flavorItem = document.createElement('div');
+                flavorItem.className = 'flavor-item';
+                flavorItem.textContent = flavor;
+                flavorGrid.appendChild(flavorItem);
+            });
+            
+            section.appendChild(flavorGrid);
+        }
+
+        // Load menu when page loads
+        document.addEventListener('DOMContentLoaded', loadMenuData);
+    </script>
+</body>
+</html>

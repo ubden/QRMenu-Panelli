@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menü Yönetim Sistemi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: #2a2a2a;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .login-container h2 {
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #d4af37;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #b8941f;
+        }
+
+        .error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Admin Panel */
+        .admin-container {
+            display: none;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #d4af37;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+
+        .sidebar {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            height: fit-content;
+        }
+
+        .main {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .category-item {
+            background: #1a1a1a;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .category-item:hover, .category-item.active {
+            background: #3a3a3a;
+        }
+
+        .category-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-small {
+            padding: 5px 10px;
+            background: #d4af37;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-delete {
+            background: #ff6b6b;
+            color: #fff;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .item-card {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #3a3a3a;
+        }
+
+        .item-name {
+            color: #d4af37;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .item-desc {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            color: #d4af37;
+        }
+
+        .close {
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            background: #666;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            background: #1a1a1a;
+            border: 1px solid #d4af37;
+            border-radius: 5px;
+            color: #fff;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.success {
+            background: #51cf66;
+        }
+
+        .message.error {
+            background: #ff6b6b;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login -->
+    <div class="login-container" id="loginContainer">
+        <h2>Menü Yönetim Sistemi</h2>
+        <div class="form-group">
+            <label>Kullanıcı Adı</label>
+            <input type="text" id="username" placeholder="Kullanıcı adı">
+        </div>
+        <div class="form-group">
+            <label>Şifre</label>
+            <input type="password" id="password" placeholder="Şifre">
+        </div>
+        <button class="btn" onclick="login()">Giriş Yap</button>
+        <p class="error" id="loginError">Kullanıcı adı veya şifre hatalı!</p>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-container" id="adminContainer">
+        <div class="header">
+            <h1>Menü Yönetim Paneli</h1>
+            <div>
+                <span id="currentUser" style="margin-right: 20px;"></span>
+                <button class="btn" style="width: auto; padding: 10px 20px;" onclick="saveData()">Kaydet</button>
+                <button class="btn btn-secondary" style="width: auto; padding: 10px 20px; margin-left: 10px;" onclick="logout()">Çıkış</button>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="sidebar">
+                <h3 style="color: #d4af37; margin-bottom: 15px;">Kategoriler</h3>
+                <div id="categoriesList"></div>
+                <button class="btn" style="margin-top: 15px;" onclick="showCategoryModal()">+ Yeni Kategori</button>
+            </div>
+
+            <div class="main">
+                <div id="welcome" style="text-align: center; padding: 50px;">
+                    <h2 style="color: #d4af37;">Hoş Geldiniz!</h2>
+                    <p>Sol taraftan bir kategori seçerek başlayın.</p>
+                </div>
+                <div id="itemsSection" style="display: none;">
+                    <h2 id="categoryTitle" style="color: #d4af37; margin-bottom: 20px;"></h2>
+                    <div id="itemsGrid" class="items-grid"></div>
+                    <button class="btn" style="margin-top: 20px;" onclick="showItemModal()">+ Yeni Ürün</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="categoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="categoryModalTitle">Yeni Kategori</h3>
+                <span class="close" onclick="closeCategoryModal()">&times;</span>
+            </div>
+            <div class="form-group">
+                <label>Kategori Adı</label>
+                <input type="text" id="categoryName">
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeCategoryModal()">İptal</button>
+                <button class="btn" onclick="saveCategoryModal()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="itemModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="itemModalTitle">Yeni Ürün</h3>
+                <span class="close" onclick="closeItemModal()">&times;</span>
+            </div>
+            <div class="form-group">
+                <label>Ürün Adı</label>
+                <input type="text" id="itemName">
+            </div>
+            <div class="form-group">
+                <label>Fiyat (TL)</label>
+                <input type="number" id="itemPrice">
+            </div>
+            <div class="form-group">
+                <label>Açıklama (Opsiyonel)</label>
+                <textarea id="itemDesc"></textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeItemModal()">İptal</button>
+                <button class="btn" onclick="saveItemModal()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = '';
+        let menuData = null;
+        let selectedCategory = null;
+        let editingCategory = null;
+        let editingItem = null;
+
+        // Login
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Şifre kontrolü: ilk 3 harf + 123
+            const expectedPassword = username.substring(0, 3) + '123';
+            
+            if (username && password === expectedPassword) {
+                currentUser = username;
+                loadUserData();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        // Load user data
+        async function loadUserData() {
+            try {
+                // Simulate loading user's JSON file
+                // In real app, this would fetch from server
+                const response = await fetch(`${currentUser}.json`);
+                if (response.ok) {
+                    menuData = await response.json();
+                } else {
+                    // Create default structure if file doesn't exist
+                    menuData = {
+                        restaurant: {
+                            name: "Restoran Adı",
+                            lastUpdated: new Date().toISOString()
+                        },
+                        categories: []
+                    };
+                }
+                
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                document.getElementById('currentUser').textContent = `Kullanıcı: ${currentUser}`;
+                
+                loadCategories();
+            } catch (error) {
+                console.error('Error loading data:', error);
+                // Use default data
+                menuData = {
+                    restaurant: {
+                        name: "Restoran Adı",
+                        lastUpdated: new Date().toISOString()
+                    },
+                    categories: []
+                };
+                
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                document.getElementById('currentUser').textContent = `Kullanıcı: ${currentUser}`;
+                
+                loadCategories();
+            }
+        }
+
+        // Save data
+        function saveData() {
+            menuData.restaurant.lastUpdated = new Date().toISOString();
+            
+            // In real app, this would save to server
+            console.log('Saving data for user:', currentUser);
+            console.log('Data:', menuData);
+            
+            // Download as JSON for now
+            const dataStr = JSON.stringify(menuData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', `${currentUser}.json`);
+            linkElement.click();
+            
+            showMessage('Veriler kaydedildi!', 'success');
+        }
+
+        // Logout
+        function logout() {
+            currentUser = '';
+            menuData = null;
+            selectedCategory = null;
+            document.getElementById('adminContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        // Load categories
+        function loadCategories() {
+            const list = document.getElementById('categoriesList');
+            list.innerHTML = '';
+            
+            menuData.categories.forEach(cat => {
+                const div = document.createElement('div');
+                div.className = 'category-item';
+                div.innerHTML = `
+                    <span onclick="selectCategory(${cat.id})">${cat.name}</span>
+                    <div class="category-actions">
+                        <button class="btn-small" onclick="editCategory(${cat.id}, event)">Düzenle</button>
+                        <button class="btn-small btn-delete" onclick="deleteCategory(${cat.id}, event)">Sil</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // Select category
+        function selectCategory(id) {
+            selectedCategory = menuData.categories.find(c => c.id === id);
+            
+            // Update UI
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.category-item').classList.add('active');
+            
+            document.getElementById('welcome').style.display = 'none';
+            document.getElementById('itemsSection').style.display = 'block';
+            document.getElementById('categoryTitle').textContent = selectedCategory.name;
+            
+            loadItems();
+        }
+
+        // Load items
+        function loadItems() {
+            const grid = document.getElementById('itemsGrid');
+            grid.innerHTML = '';
+            
+            if (!selectedCategory.items || selectedCategory.items.length === 0) {
+                grid.innerHTML = '<p style="text-align: center; color: #666;">Bu kategoride ürün yok.</p>';
+                return;
+            }
+            
+            selectedCategory.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'item-card';
+                card.innerHTML = `
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-price">${item.price} TL</div>
+                    ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
+                    <div class="category-actions">
+                        <button class="btn-small" onclick="editItem(${item.id})">Düzenle</button>
+                        <button class="btn-small btn-delete" onclick="deleteItem(${item.id})">Sil</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Category Modal
+        function showCategoryModal() {
+            editingCategory = null;
+            document.getElementById('categoryModalTitle').textContent = 'Yeni Kategori';
+            document.getElementById('categoryName').value = '';
+            document.getElementById('categoryModal').style.display = 'flex';
+        }
+
+        function editCategory(id, event) {
+            event.stopPropagation();
+            editingCategory = menuData.categories.find(c => c.id === id);
+            document.getElementById('categoryModalTitle').textContent = 'Kategori Düzenle';
+            document.getElementById('categoryName').value = editingCategory.name;
+            document.getElementById('categoryModal').style.display = 'flex';
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').style.display = 'none';
+        }
+
+        function saveCategoryModal() {
+            const name = document.getElementById('categoryName').value.trim();
+            if (!name) {
+                alert('Kategori adı giriniz!');
+                return;
+            }
+            
+            if (editingCategory) {
+                editingCategory.name = name;
+            } else {
+                const newCat = {
+                    id: Date.now(),
+                    name: name,
+                    items: []
+                };
+                menuData.categories.push(newCat);
+            }
+            
+            loadCategories();
+            closeCategoryModal();
+            showMessage('Kategori kaydedildi!', 'success');
+        }
+
+        function deleteCategory(id, event) {
+            event.stopPropagation();
+            if (confirm('Kategoriyi silmek istediğinize emin misiniz?')) {
+                menuData.categories = menuData.categories.filter(c => c.id !== id);
+                loadCategories();
+                
+                if (selectedCategory && selectedCategory.id === id) {
+                    document.getElementById('welcome').style.display = 'block';
+                    document.getElementById('itemsSection').style.display = 'none';
+                    selectedCategory = null;
+                }
+                
+                showMessage('Kategori silindi!', 'success');
+            }
+        }
+
+        // Item Modal
+        function showItemModal() {
+            if (!selectedCategory) return;
+            
+            editingItem = null;
+            document.getElementById('itemModalTitle').textContent = 'Yeni Ürün';
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemPrice').value = '';
+            document.getElementById('itemDesc').value = '';
+            document.getElementById('itemModal').style.display = 'flex';
+        }
+
+        function editItem(id) {
+            editingItem = selectedCategory.items.find(i => i.id === id);
+            document.getElementById('itemModalTitle').textContent = 'Ürün Düzenle';
+            document.getElementById('itemName').value = editingItem.name;
+            document.getElementById('itemPrice').value = editingItem.price;
+            document.getElementById('itemDesc').value = editingItem.description || '';
+            document.getElementById('itemModal').style.display = 'flex';
+        }
+
+        function closeItemModal() {
+            document.getElementById('itemModal').style.display = 'none';
+        }
+
+        function saveItemModal() {
+            const name = document.getElementById('itemName').value.trim();
+            const price = document.getElementById('itemPrice').value;
+            const desc = document.getElementById('itemDesc').value.trim();
+            
+            if (!name || !price) {
+                alert('Ürün adı ve fiyat giriniz!');
+                return;
+            }
+            
+            if (editingItem) {
+                editingItem.name = name;
+                editingItem.price = parseFloat(price);
+                editingItem.description = desc;
+            } else {
+                const newItem = {
+                    id: Date.now(),
+                    name: name,
+                    price: parseFloat(price),
+                    description: desc
+                };
+                if (!selectedCategory.items) {
+                    selectedCategory.items = [];
+                }
+                selectedCategory.items.push(newItem);
+            }
+            
+            loadItems();
+            closeItemModal();
+            showMessage('Ürün kaydedildi!', 'success');
+        }
+
+        function deleteItem(id) {
+            if (confirm('Ürünü silmek istediğinize emin misiniz?')) {
+                selectedCategory.items = selectedCategory.items.filter(i => i.id !== id);
+                loadItems();
+                showMessage('Ürün silindi!', 'success');
+            }
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const msg = document.createElement('div');
+            msg.className = `message ${type}`;
+            msg.textContent = text;
+            document.body.appendChild(msg);
+            
+            setTimeout(() => {
+                msg.remove();
+            }, 3000);
+        }
+
+        // Enter key login
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>
