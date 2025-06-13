@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restoran Menüsü</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -77,6 +78,14 @@
             z-index: 1;
         }
 
+        .menu-header .contact-info i {
+            margin-right: 5px;
+        }
+        .menu-header .contact-info a {
+            color: inherit;
+            text-decoration: none;
+            margin-right: 10px;
+        }
         .menu-content {
             padding: 40px;
             display: grid;
@@ -245,6 +254,17 @@
                 font-size: 1.5em;
             }
         }
+        .menu-footer {
+            text-align: center;
+            font-size: 0.9em;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ccc;
+        }
+        .menu-footer a {
+            color: #f4e4a1;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -259,6 +279,9 @@
                 <div class="spinner"></div>
             </div>
         </div>
+        <footer class="menu-footer">
+            Ubden® A.Ş. Teknoloji ve Yazılım Sistemleri , 0850 305 09 19,  - Entegre Restoran Otomasyonları - <a href="https://ubden.com.tr">ubden.com.tr</a>
+        </footer>
     </div>
 
     <script>
@@ -296,17 +319,23 @@
         // Render menu from data
         function renderMenu(data) {
             // Update restaurant name
-            if (data.restaurant && data.restaurant.name) {
-                document.getElementById('restaurantName').textContent = data.restaurant.name;
+            const headerEl = document.getElementById("restaurantName");
+            if (data.general && data.general.pageTitle) {
+                headerEl.textContent = data.general.pageTitle;
+                document.title = data.general.pageTitle;
+            } else if (data.restaurant && data.restaurant.name) {
+                headerEl.textContent = data.restaurant.name;
             }
+
+            const contactEl = document.getElementById("contactInfo");
+            contactEl.innerHTML = "";
             if (data.general) {
-                if (data.general.pageTitle) {
-                    document.title = data.general.pageTitle;
+                if (data.general.phoneNumber) {
+                    contactEl.innerHTML += `<a href="tel:${data.general.phoneNumber}"><i class="fa-solid fa-phone"></i> ${data.general.phoneNumber}</a>`;
                 }
-                const info = [];
-                if (data.general.phoneNumber) info.push(data.general.phoneNumber);
-                if (data.general.socialMedia) info.push(data.general.socialMedia);
-                document.getElementById('contactInfo').textContent = info.join(' - ');
+                if (data.general.socialMedia) {
+                    contactEl.innerHTML += `<a href="${data.general.socialMedia}" target="_blank"><i class="fa-brands fa-instagram"></i> ${data.general.socialMedia}</a>`;
+                }
             }
             
             // Clear content
