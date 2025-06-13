@@ -1,397 +1,397 @@
 {
-  "general": {
-    "pageTitle": "Restoran Menüsü",
-    "phoneNumber": "",
-    "socialMedia": ""
-  },
-  "restaurant": {
-    "name": "Cafe & Restaurant",
-    "lastUpdated": "2024-01-15T10:30:00.000Z"
-  },
-  "categories": [
-    {
-      "id": 1,
-      "name": "Sıcak İçecekler",
-      "items": [
-        {
-          "id": 101,
-          "name": "Çay",
-          "price": 50,
-          "description": ""
-        },
-        {
-          "id": 102,
-          "name": "Çay Fincan",
-          "price": 60,
-          "description": ""
-        }
-      ]
+    "general": {
+        "pageTitle": "NOOK MENÜ",
+        "phoneNumber": "",
+        "socialMedia": "nooklounge59"
     },
-    {
-      "id": 2,
-      "name": "Bitki ve Meyve Çayları",
-      "items": [
-        {
-          "id": 201,
-          "name": "Bitki Çayı",
-          "price": 100,
-          "description": "Nane Limon, Yeşil Çay, Ihlamur, Kış Çayı"
-        }
-      ]
+    "restaurant": {
+        "name": "Cafe & Restaurant",
+        "lastUpdated": "2025-06-13T12:12:59.249Z"
     },
-    {
-      "id": 3,
-      "name": "Sıcak Kahve Çeşitleri",
-      "items": [
+    "categories": [
         {
-          "id": 301,
-          "name": "Türk Kahvesi",
-          "price": 100,
-          "description": ""
+            "id": 1,
+            "name": "Sıcak İçecekler",
+            "items": [
+                {
+                    "id": 101,
+                    "name": "Çay",
+                    "price": 50,
+                    "description": ""
+                },
+                {
+                    "id": 102,
+                    "name": "Çay Fincan",
+                    "price": 60,
+                    "description": ""
+                }
+            ]
         },
         {
-          "id": 302,
-          "name": "Türk Kahvesi Duble",
-          "price": 120,
-          "description": ""
+            "id": 2,
+            "name": "Bitki Çayları",
+            "items": [
+                {
+                    "id": 201,
+                    "name": "Bitki Çayı",
+                    "price": 100,
+                    "description": "Nane Limon, Yeşil Çay, Ihlamur, Kış Çayı"
+                }
+            ]
         },
         {
-          "id": 303,
-          "name": "Americano",
-          "price": 100,
-          "description": ""
+            "id": 4,
+            "name": "Soğuk Kahveler",
+            "items": [
+                {
+                    "id": 401,
+                    "name": "Iced Americano",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 402,
+                    "name": "Iced Filtre Kahve",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 403,
+                    "name": "Iced Espresso",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 404,
+                    "name": "Iced Cappuccino",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 405,
+                    "name": "Iced Latte",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 406,
+                    "name": "Iced Macchiato",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 407,
+                    "name": "Iced Karamel Macchiato",
+                    "price": 100,
+                    "description": ""
+                }
+            ]
         },
         {
-          "id": 304,
-          "name": "Filtre Kahve",
-          "price": 100,
-          "description": ""
+            "id": 3,
+            "name": "Sıcak Kahveler",
+            "items": [
+                {
+                    "id": 301,
+                    "name": "Türk Kahvesi",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 302,
+                    "name": "Türk Kahvesi Duble",
+                    "price": 120,
+                    "description": ""
+                },
+                {
+                    "id": 303,
+                    "name": "Americano",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 304,
+                    "name": "Filtre Kahve",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 305,
+                    "name": "Espresso",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 306,
+                    "name": "Cappuccino",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 307,
+                    "name": "Latte",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 308,
+                    "name": "Macchiato",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 309,
+                    "name": "Karamel Macchiato",
+                    "price": 100,
+                    "description": ""
+                }
+            ]
         },
         {
-          "id": 305,
-          "name": "Espresso",
-          "price": 100,
-          "description": ""
+            "id": 5,
+            "name": "İçecekler",
+            "items": [
+                {
+                    "id": 501,
+                    "name": "Su",
+                    "price": 30,
+                    "description": ""
+                },
+                {
+                    "id": 502,
+                    "name": "Cam Su",
+                    "price": 50,
+                    "description": ""
+                },
+                {
+                    "id": 503,
+                    "name": "Coca Cola",
+                    "price": 80,
+                    "description": "Zero seçeneği mevcut"
+                },
+                {
+                    "id": 504,
+                    "name": "Fanta",
+                    "price": 80,
+                    "description": ""
+                },
+                {
+                    "id": 505,
+                    "name": "Sprite",
+                    "price": 80,
+                    "description": ""
+                },
+                {
+                    "id": 506,
+                    "name": "Sade Soda",
+                    "price": 50,
+                    "description": ""
+                },
+                {
+                    "id": 507,
+                    "name": "Meyveli Soda",
+                    "price": 60,
+                    "description": "Karpuz Çilek, Ananas, Elma, Limon"
+                },
+                {
+                    "id": 508,
+                    "name": "Fuse Tea",
+                    "price": 80,
+                    "description": "Karpuz, Mango, Limon, Çilek Kavun, Şeftali"
+                },
+                {
+                    "id": 509,
+                    "name": "Meyve Suyu",
+                    "price": 80,
+                    "description": "Karışık, Portakal, Şeftali"
+                },
+                {
+                    "id": 510,
+                    "name": "Churchill",
+                    "price": 80,
+                    "description": ""
+                },
+                {
+                    "id": 511,
+                    "name": "Limonata",
+                    "price": 80,
+                    "description": ""
+                },
+                {
+                    "id": 512,
+                    "name": "Çilekli Limonata",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 513,
+                    "name": "Portakal Suyu",
+                    "price": 80,
+                    "description": ""
+                },
+                {
+                    "id": 514,
+                    "name": "Ayran",
+                    "price": 50,
+                    "description": ""
+                },
+                {
+                    "id": 515,
+                    "name": "Frozen",
+                    "price": 150,
+                    "description": "Çilek, Orman Meyveli, Mango"
+                }
+            ]
         },
         {
-          "id": 306,
-          "name": "Cappuccino",
-          "price": 100,
-          "description": ""
+            "id": 6,
+            "name": "Tost Çeşitleri",
+            "items": [
+                {
+                    "id": 601,
+                    "name": "Kaşarlı Tost",
+                    "price": 120,
+                    "description": ""
+                },
+                {
+                    "id": 602,
+                    "name": "Kaşarlı Tost Patatesli",
+                    "price": 150,
+                    "description": ""
+                },
+                {
+                    "id": 603,
+                    "name": "Karışık Tost",
+                    "price": 150,
+                    "description": ""
+                },
+                {
+                    "id": 604,
+                    "name": "Karışık Tost Patatesli",
+                    "price": 180,
+                    "description": ""
+                },
+                {
+                    "id": 605,
+                    "name": "Kavurma Kaşarlı Tost",
+                    "price": 200,
+                    "description": ""
+                },
+                {
+                    "id": 606,
+                    "name": "Kavurma Kaşarlı Tost Patatesli",
+                    "price": 230,
+                    "description": ""
+                },
+                {
+                    "id": 607,
+                    "name": "Pizza Tost",
+                    "price": 150,
+                    "description": ""
+                }
+            ]
         },
         {
-          "id": 307,
-          "name": "Latte",
-          "price": 100,
-          "description": ""
+            "id": 7,
+            "name": "Bazlama Tost",
+            "items": [
+                {
+                    "id": 701,
+                    "name": "Kaşarlı Bazlama",
+                    "price": 150,
+                    "description": ""
+                },
+                {
+                    "id": 702,
+                    "name": "Karışık Bazlama",
+                    "price": 150,
+                    "description": ""
+                },
+                {
+                    "id": 703,
+                    "name": "Kavurma Kaşarlı Bazlama",
+                    "price": 200,
+                    "description": ""
+                }
+            ]
         },
         {
-          "id": 308,
-          "name": "Macchiato",
-          "price": 100,
-          "description": ""
+            "id": 8,
+            "name": "Atıştırmalık",
+            "items": [
+                {
+                    "id": 801,
+                    "name": "Sepet Patates",
+                    "price": 100,
+                    "description": ""
+                },
+                {
+                    "id": 802,
+                    "name": "Special Tabak",
+                    "price": 250,
+                    "description": "Patates, Çıtır Tavuk, Köfte"
+                }
+            ]
         },
         {
-          "id": 309,
-          "name": "Karamel Macchiato",
-          "price": 100,
-          "description": ""
+            "id": 9,
+            "name": "Tatlı Çeşitleri",
+            "items": [
+                {
+                    "id": 901,
+                    "name": "Tiramisu",
+                    "price": 150,
+                    "description": ""
+                },
+                {
+                    "id": 902,
+                    "name": "Cheesecake",
+                    "price": 150,
+                    "description": ""
+                },
+                {
+                    "id": 903,
+                    "name": "Fırın Sütlaç",
+                    "price": 150,
+                    "description": ""
+                },
+                {
+                    "id": 904,
+                    "name": "Trileçe",
+                    "price": 150,
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Nargile Çeşitleri",
+            "items": [
+                {
+                    "id": 1001,
+                    "name": "Meyveli Nargile",
+                    "price": 250,
+                    "description": "Limon, Nane, Kavun, Elma, Vanilya, Lady, Love 66, Şeftali, Ice Cola, Master Mix, Bisküvi, Kivi, Çilek"
+                },
+                {
+                    "id": 1002,
+                    "name": "Nargile Anason",
+                    "price": 300,
+                    "description": ""
+                },
+                {
+                    "id": 1003,
+                    "name": "Nargile Üzüm-Nane",
+                    "price": 300,
+                    "description": ""
+                },
+                {
+                    "id": 1004,
+                    "name": "Nargile Cappuccino",
+                    "price": 300,
+                    "description": ""
+                }
+            ]
         }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Soğuk Kahve Çeşitleri",
-      "items": [
-        {
-          "id": 401,
-          "name": "Iced Americano",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 402,
-          "name": "Iced Filtre Kahve",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 403,
-          "name": "Iced Espresso",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 404,
-          "name": "Iced Cappuccino",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 405,
-          "name": "Iced Latte",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 406,
-          "name": "Iced Macchiato",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 407,
-          "name": "Iced Karamel Macchiato",
-          "price": 100,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "İçecekler",
-      "items": [
-        {
-          "id": 501,
-          "name": "Su",
-          "price": 30,
-          "description": ""
-        },
-        {
-          "id": 502,
-          "name": "Cam Su",
-          "price": 50,
-          "description": ""
-        },
-        {
-          "id": 503,
-          "name": "Coca Cola",
-          "price": 80,
-          "description": "Zero seçeneği mevcut"
-        },
-        {
-          "id": 504,
-          "name": "Fanta",
-          "price": 80,
-          "description": ""
-        },
-        {
-          "id": 505,
-          "name": "Sprite",
-          "price": 80,
-          "description": ""
-        },
-        {
-          "id": 506,
-          "name": "Sade Soda",
-          "price": 50,
-          "description": ""
-        },
-        {
-          "id": 507,
-          "name": "Meyveli Soda",
-          "price": 60,
-          "description": "Karpuz Çilek, Ananas, Elma, Limon"
-        },
-        {
-          "id": 508,
-          "name": "Fuse Tea",
-          "price": 80,
-          "description": "Karpuz, Mango, Limon, Çilek Kavun, Şeftali"
-        },
-        {
-          "id": 509,
-          "name": "Meyve Suyu",
-          "price": 80,
-          "description": "Karışık, Portakal, Şeftali"
-        },
-        {
-          "id": 510,
-          "name": "Churchill",
-          "price": 80,
-          "description": ""
-        },
-        {
-          "id": 511,
-          "name": "Limonata",
-          "price": 80,
-          "description": ""
-        },
-        {
-          "id": 512,
-          "name": "Çilekli Limonata",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 513,
-          "name": "Portakal Suyu",
-          "price": 80,
-          "description": ""
-        },
-        {
-          "id": 514,
-          "name": "Ayran",
-          "price": 50,
-          "description": ""
-        },
-        {
-          "id": 515,
-          "name": "Frozen",
-          "price": 150,
-          "description": "Çilek, Orman Meyveli, Mango"
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "Tost Çeşitleri",
-      "items": [
-        {
-          "id": 601,
-          "name": "Kaşarlı Tost",
-          "price": 120,
-          "description": ""
-        },
-        {
-          "id": 602,
-          "name": "Kaşarlı Tost Patatesli",
-          "price": 150,
-          "description": ""
-        },
-        {
-          "id": 603,
-          "name": "Karışık Tost",
-          "price": 150,
-          "description": ""
-        },
-        {
-          "id": 604,
-          "name": "Karışık Tost Patatesli",
-          "price": 180,
-          "description": ""
-        },
-        {
-          "id": 605,
-          "name": "Kavurma Kaşarlı Tost",
-          "price": 200,
-          "description": ""
-        },
-        {
-          "id": 606,
-          "name": "Kavurma Kaşarlı Tost Patatesli",
-          "price": 230,
-          "description": ""
-        },
-        {
-          "id": 607,
-          "name": "Pizza Tost",
-          "price": 150,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "Bazlama Tost",
-      "items": [
-        {
-          "id": 701,
-          "name": "Kaşarlı Bazlama",
-          "price": 150,
-          "description": ""
-        },
-        {
-          "id": 702,
-          "name": "Karışık Bazlama",
-          "price": 150,
-          "description": ""
-        },
-        {
-          "id": 703,
-          "name": "Kavurma Kaşarlı Bazlama",
-          "price": 200,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "name": "Atıştırmalık",
-      "items": [
-        {
-          "id": 801,
-          "name": "Sepet Patates",
-          "price": 100,
-          "description": ""
-        },
-        {
-          "id": 802,
-          "name": "Special Tabak",
-          "price": 250,
-          "description": "Patates, Çıtır Tavuk, Köfte"
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "name": "Tatlı Çeşitleri",
-      "items": [
-        {
-          "id": 901,
-          "name": "Tiramisu",
-          "price": 150,
-          "description": ""
-        },
-        {
-          "id": 902,
-          "name": "Cheesecake",
-          "price": 150,
-          "description": ""
-        },
-        {
-          "id": 903,
-          "name": "Fırın Sütlaç",
-          "price": 150,
-          "description": ""
-        },
-        {
-          "id": 904,
-          "name": "Trileçe",
-          "price": 150,
-          "description": ""
-        }
-      ]
-    },
-    {
-      "id": 10,
-      "name": "Nargile Çeşitleri",
-      "items": [
-        {
-          "id": 1001,
-          "name": "Meyveli Nargile",
-          "price": 250,
-          "description": "Limon, Nane, Kavun, Elma, Vanilya, Lady, Love 66, Şeftali, Ice Cola, Master Mix, Bisküvi, Kivi, Çilek"
-        },
-        {
-          "id": 1002,
-          "name": "Nargile Anason",
-          "price": 300,
-          "description": ""
-        },
-        {
-          "id": 1003,
-          "name": "Nargile Üzüm-Nane",
-          "price": 300,
-          "description": ""
-        },
-        {
-          "id": 1004,
-          "name": "Nargile Cappuccino",
-          "price": 300,
-          "description": ""
-        }
-      ]
-    }
-  ]
+    ]
 }
