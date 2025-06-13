@@ -1,10 +1,48 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="utf-8">
-    <title>Restoran QR Yönetim Panelli</title>
+    <title>QR Menü Sistemi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+        h1 {
+            color: #b76e79;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        a {
+            color: #b76e79;
+        }
+    </style>
 </head>
 <body>
-     Bize Ulaşın : 0850 305 09 19
+    <div class="container">
+        <h1>QR Menü Sistemine Hoş Geldiniz</h1>
+        <p>Bu proje, işletmelerin menülerini QR kod aracılığıyla kolayca müşterilerine sunabilmeleri için hazırlanmıştır. "nook" klasörü içinde yer alan dosyalar sayesinde menünüzü dijital olarak yönetebilir ve görüntüleyebilirsiniz.</p>
+        <h2>Özellikler</h2>
+        <ul>
+            <li><strong>Dijital Menü:</strong> <code>nook/nook.html</code> dosyası, menü verilerini <code>nook.json</code> dosyasından okuyarak kullanıcıya modern bir görünümle sunar.</li>
+            <li><strong>Yönetim Paneli:</strong> <code>nook/admin.html</code> ile kategorileri ve ürünleri kolayca düzenleyebilir, güncellenen menüyü JSON olarak dışa aktarabilirsiniz.</li>
+            <li><strong>QR Kod Desteği:</strong> Masalara yerleştireceğiniz QR kodlarla ziyaretçileriniz menüye anında ulaşabilir.</li>
+        </ul>
+        <p>Demo sayfalarına aşağıdaki bağlantılardan ulaşabilirsiniz:</p>
+        <ul>
+            <li><a href="nook/nook.html">Menüyü Görüntüle</a></li>
+            <li><a href="nook/admin.html">Yönetim Paneli</a></li>
+        </ul>
+        <p>Destek veya bilgi için: <a href="tel:+908503050919">0850&nbsp;305&nbsp;09&nbsp;19</a></p>
+    </div>
 </body>
 </html>
