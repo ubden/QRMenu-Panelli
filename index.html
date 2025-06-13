@@ -3,46 +3,87 @@
 <head>
     <meta charset="utf-8">
     <title>QR Menü Sistemi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
             margin: 0;
-            padding: 40px;
+            padding: 0;
             color: #333;
         }
+        header {
+            background: #b76e79;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
         h1 {
-            color: #b76e79;
+            margin: 0;
+            font-size: 2.5em;
         }
-        .container {
-            max-width: 800px;
-            margin: auto;
+        main {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .intro {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .restaurants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .restaurant {
             background: #fff;
-            padding: 20px 40px;
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
         }
-        a {
+        .restaurant:hover {
+            transform: translateY(-3px);
+        }
+        .restaurant a {
+            display: block;
             color: #b76e79;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>QR Menü Sistemine Hoş Geldiniz</h1>
-        <p>Bu proje, işletmelerin menülerini QR kod aracılığıyla kolayca müşterilerine sunabilmeleri için hazırlanmıştır. "restoranadi" klasörü içinde yer alan dosyalar sayesinde menünüzü dijital olarak yönetebilir ve görüntüleyebilirsiniz.</p>
-        <h2>Özellikler</h2>
-        <ul>
-            <li><strong>Dijital Menü:</strong> <code>restoranadi/restoranadi.html</code> dosyası, menü verilerini <code>nook.json</code> dosyasından okuyarak kullanıcıya modern bir görünümle sunar.</li>
-            <li><strong>Yönetim Paneli:</strong> <code>restoranadi/admin.html</code> ile kategorileri ve ürünleri kolayca düzenleyebilir, güncellenen menüyü JSON olarak dışa aktarabilirsiniz.</li>
-            <li><strong>QR Kod Desteği:</strong> Masalara yerleştireceğiniz QR kodlarla ziyaretçileriniz menüye anında ulaşabilir.</li>
-        </ul>
-        <p>Demo sayfalarına aşağıdaki bağlantılardan ulaşabilirsiniz:</p>
-        <ul>
-            <li><a href="nook/nook.html">Menüyü Görüntüle</a></li>
-            <li><a href="nook/admin.html">Yönetim Paneli</a></li>
-        </ul>
-        <p>Destek veya bilgi için: <a href="tel:+908503050919">0850&nbsp;305&nbsp;09&nbsp;19</a></p>
-    </div>
+    <header>
+        <h1>QR Menü Tanıtımı</h1>
+    </header>
+    <main>
+        <div class="intro">
+            <p>Bu sayfa, örnek restoran menülerini hızlıca incelemeniz için hazırlanmıştır. Aşağıdaki listeden istediğiniz menüyü görüntüleyebilirsiniz.</p>
+        </div>
+        <div class="restaurants" id="restaurants"></div>
+    </main>
+    <script>
+        async function loadRestaurants() {
+            try {
+                const response = await fetch('restaurants.json');
+                const data = await response.json();
+                const container = document.getElementById('restaurants');
+                data.restaurants.forEach(r => {
+                    const card = document.createElement('div');
+                    card.className = 'restaurant';
+                    card.innerHTML = `<div>${r.name}</div><a href="${r.folder}/${r.folder}.html">Menüyü Görüntüle</a>`;
+                    container.appendChild(card);
+                });
+            } catch (e) {
+                document.getElementById('restaurants').innerHTML = 'Menü listesi yüklenemedi.';
+                console.error('restaurants.json okunamadı', e);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', loadRestaurants);
+    </script>
 </body>
 </html>
