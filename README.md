@@ -1,6 +1,6 @@
 # QRMenu-Panelli
 
-Bu repoda basit bir **QR kodlu menü sistemi** bulunmaktadır. `ilgili` klasörü içerisindeki dosyalar menüyü görüntülemek ve düzenlemek için gerekli tüm yapıyı içerir.
+Bu repoda basit bir **QR kodlu menü sistemi** bulunmaktadır. `restoranadi` klasörü içerisindeki dosyalar menüyü görüntülemek ve düzenlemek için gerekli tüm yapıyı içerir.
 
 ## İçerik
 - **`restoranadi/restoranadi.html`** – JSON dosyasından okuduğu verilerle menüyü kullanıcıya sunar.
