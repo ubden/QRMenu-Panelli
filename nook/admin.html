@@ -465,7 +465,7 @@
         // Save data
         function saveData() {
             menuData.restaurant.lastUpdated = new Date().toISOString();
-            fetch('/save-menu', {
+            fetch('../save-menu.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ user: currentUser, data: menuData })
