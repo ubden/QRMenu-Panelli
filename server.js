@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-app.post('/save-menu', async (req, res) => {
+const saveHandler = async (req, res) => {
   const { user, data } = req.body;
   if (!user || !data) {
     return res.status(400).send('Missing user or data');
@@ -19,7 +19,10 @@ app.post('/save-menu', async (req, res) => {
     console.error('Error saving menu:', err);
     res.status(500).send('Failed to save');
   }
-});
+};
+
+app.post('/save-menu', saveHandler);
+app.post('/save-menu.php', saveHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
