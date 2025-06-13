@@ -320,6 +320,7 @@
             <div>
                 <span id="currentUser" style="margin-right: 20px;"></span>
                 <button class="btn" style="width: auto; padding: 10px 20px;" onclick="saveData()">Kaydet</button>
+                <button class="btn btn-secondary" style="width: auto; padding: 10px 20px; margin-left: 10px;" onclick="showGeneralModal()">Genel Ayarlar</button>
                 <button class="btn btn-secondary" style="width: auto; padding: 10px 20px; margin-left: 10px;" onclick="logout()">Çıkış</button>
             </div>
         </div>
@@ -391,6 +392,31 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="generalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Genel Tanımlar</h3>
+                <span class="close" onclick="closeGeneralModal()">&times;</span>
+            </div>
+            <div class="form-group">
+                <label>Sayfa Başlığı</label>
+                <input type="text" id="generalPageTitle">
+            </div>
+            <div class="form-group">
+                <label>Telefon Numarası</label>
+                <input type="text" id="generalPhone">
+            </div>
+            <div class="form-group">
+                <label>Sosyal Medya @</label>
+                <input type="text" id="generalSocial">
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="closeGeneralModal()">İptal</button>
+                <button class="btn" onclick="saveGeneralModal()">Kaydet</button>
+            </div>
+        </div>
+    </div>
     <div id="lightbox" class="lightbox">
         <span class="close" onclick="closeLightbox()">&times;</span>
         <img id="lightboxImg" src="" alt="">
@@ -430,12 +456,20 @@
                 } else {
                     // Create default structure if file doesn't exist
                     menuData = {
+                        general: {
+                            pageTitle: '',
+                            phoneNumber: '',
+                            socialMedia: ''
+                        },
                         restaurant: {
                             name: "Restoran Adı",
                             lastUpdated: new Date().toISOString()
                         },
                         categories: []
                     };
+                }
+                if (!menuData.general) {
+                    menuData.general = { pageTitle: '', phoneNumber: '', socialMedia: '' };
                 }
                 
                 document.getElementById('loginContainer').style.display = 'none';
@@ -447,6 +481,11 @@
                 console.error('Error loading data:', error);
                 // Use default data
                 menuData = {
+                    general: {
+                        pageTitle: '',
+                        phoneNumber: '',
+                        socialMedia: ''
+                    },
                     restaurant: {
                         name: "Restoran Adı",
                         lastUpdated: new Date().toISOString()
@@ -701,6 +740,29 @@
             const moved = selectedCategory.items.splice(index, 1)[0];
             selectedCategory.items.splice(newIndex, 0, moved);
             loadItems();
+        }
+
+        function showGeneralModal() {
+            if (!menuData.general) {
+                menuData.general = { pageTitle: '', phoneNumber: '', socialMedia: '' };
+            }
+            document.getElementById('generalPageTitle').value = menuData.general.pageTitle || '';
+            document.getElementById('generalPhone').value = menuData.general.phoneNumber || '';
+            document.getElementById('generalSocial').value = menuData.general.socialMedia || '';
+            document.getElementById('generalModal').style.display = 'flex';
+        }
+
+        function closeGeneralModal() {
+            document.getElementById('generalModal').style.display = 'none';
+        }
+
+        function saveGeneralModal() {
+            if (!menuData.general) menuData.general = {};
+            menuData.general.pageTitle = document.getElementById('generalPageTitle').value.trim();
+            menuData.general.phoneNumber = document.getElementById('generalPhone').value.trim();
+            menuData.general.socialMedia = document.getElementById('generalSocial').value.trim();
+            closeGeneralModal();
+            showMessage('Genel ayarlar güncellendi!', 'success');
         }
 
         function openLightbox(src) {

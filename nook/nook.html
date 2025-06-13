@@ -70,6 +70,13 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
+        .menu-header .contact-info {
+            font-size: 1em;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
         .menu-content {
             padding: 40px;
             display: grid;
@@ -244,6 +251,7 @@
     <div class="menu-container">
         <div class="menu-header">
             <h1 id="restaurantName">MENÜ</h1>
+            <div class="contact-info" id="contactInfo"></div>
         </div>
         
         <div class="menu-content" id="menuContent">
@@ -290,6 +298,15 @@
             // Update restaurant name
             if (data.restaurant && data.restaurant.name) {
                 document.getElementById('restaurantName').textContent = data.restaurant.name;
+            }
+            if (data.general) {
+                if (data.general.pageTitle) {
+                    document.title = data.general.pageTitle;
+                }
+                const info = [];
+                if (data.general.phoneNumber) info.push(data.general.phoneNumber);
+                if (data.general.socialMedia) info.push(data.general.socialMedia);
+                document.getElementById('contactInfo').textContent = info.join(' - ');
             }
             
             // Clear content
