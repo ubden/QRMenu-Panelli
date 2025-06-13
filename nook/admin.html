@@ -150,6 +150,15 @@
             background: #ff6b6b;
             color: #fff;
         }
+        .move-button {
+            background: #444;
+            color: #fff;
+            padding: 2px 6px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
 
         .items-grid {
             display: grid;
@@ -263,6 +272,29 @@
             from { transform: translateX(100%); }
             to { transform: translateX(0); }
         }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -346,6 +378,10 @@
                 <input type="number" id="itemPrice">
             </div>
             <div class="form-group">
+                <label>Resim URL (Opsiyonel)</label>
+                <input type="text" id="itemImage">
+            </div>
+            <div class="form-group">
                 <label>Açıklama (Opsiyonel)</label>
                 <textarea id="itemDesc"></textarea>
             </div>
@@ -354,6 +390,10 @@
                 <button class="btn" onclick="saveItemModal()">Kaydet</button>
             </div>
         </div>
+    </div>
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" src="" alt="">
     </div>
 
     <script>
@@ -425,21 +465,19 @@
         // Save data
         function saveData() {
             menuData.restaurant.lastUpdated = new Date().toISOString();
-            
-            // In real app, this would save to server
-            console.log('Saving data for user:', currentUser);
-            console.log('Data:', menuData);
-            
-            // Download as JSON for now
-            const dataStr = JSON.stringify(menuData, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', `${currentUser}.json`);
-            linkElement.click();
-            
-            showMessage('Veriler kaydedildi!', 'success');
+            fetch('/save-menu', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user: currentUser, data: menuData })
+            })
+            .then(res => {
+                if (res.ok) {
+                    showMessage('Veriler kaydedildi!', 'success');
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch(() => showMessage('Kaydetme hatasi!', 'error'));
         }
 
         // Logout
@@ -459,12 +497,14 @@
             const list = document.getElementById('categoriesList');
             list.innerHTML = '';
             
-            menuData.categories.forEach(cat => {
+            menuData.categories.forEach((cat, idx) => {
                 const div = document.createElement('div');
                 div.className = 'category-item';
                 div.innerHTML = `
                     <span onclick="selectCategory(${cat.id})">${cat.name}</span>
                     <div class="category-actions">
+                        <button class="move-button" onclick="moveCategory(${idx}, -1)">↑</button>
+                        <button class="move-button" onclick="moveCategory(${idx}, 1)">↓</button>
                         <button class="btn-small" onclick="editCategory(${cat.id}, event)">Düzenle</button>
                         <button class="btn-small btn-delete" onclick="deleteCategory(${cat.id}, event)">Sil</button>
                     </div>
@@ -500,14 +540,17 @@
                 return;
             }
             
-            selectedCategory.items.forEach(item => {
+            selectedCategory.items.forEach((item, idx) => {
                 const card = document.createElement('div');
                 card.className = 'item-card';
                 card.innerHTML = `
                     <div class="item-name">${item.name}</div>
+                    ${item.image ? `<button class="move-button" onclick="openLightbox('${item.image}')">Resim</button>` : ''}
                     <div class="item-price">${item.price} TL</div>
                     ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
                     <div class="category-actions">
+                        <button class="move-button" onclick="moveItem(${idx}, -1)">↑</button>
+                        <button class="move-button" onclick="moveItem(${idx}, 1)">↓</button>
                         <button class="btn-small" onclick="editItem(${item.id})">Düzenle</button>
                         <button class="btn-small btn-delete" onclick="deleteItem(${item.id})">Sil</button>
                     </div>
@@ -575,6 +618,14 @@
             }
         }
 
+        function moveCategory(index, dir) {
+            const newIndex = index + dir;
+            if (newIndex < 0 || newIndex >= menuData.categories.length) return;
+            const moved = menuData.categories.splice(index, 1)[0];
+            menuData.categories.splice(newIndex, 0, moved);
+            loadCategories();
+        }
+
         // Item Modal
         function showItemModal() {
             if (!selectedCategory) return;
@@ -583,6 +634,7 @@
             document.getElementById('itemModalTitle').textContent = 'Yeni Ürün';
             document.getElementById('itemName').value = '';
             document.getElementById('itemPrice').value = '';
+            document.getElementById('itemImage').value = '';
             document.getElementById('itemDesc').value = '';
             document.getElementById('itemModal').style.display = 'flex';
         }
@@ -592,6 +644,7 @@
             document.getElementById('itemModalTitle').textContent = 'Ürün Düzenle';
             document.getElementById('itemName').value = editingItem.name;
             document.getElementById('itemPrice').value = editingItem.price;
+            document.getElementById('itemImage').value = editingItem.image || '';
             document.getElementById('itemDesc').value = editingItem.description || '';
             document.getElementById('itemModal').style.display = 'flex';
         }
@@ -603,6 +656,7 @@
         function saveItemModal() {
             const name = document.getElementById('itemName').value.trim();
             const price = document.getElementById('itemPrice').value;
+            const img = document.getElementById('itemImage').value.trim();
             const desc = document.getElementById('itemDesc').value.trim();
             
             if (!name || !price) {
@@ -613,12 +667,14 @@
             if (editingItem) {
                 editingItem.name = name;
                 editingItem.price = parseFloat(price);
+                editingItem.image = img;
                 editingItem.description = desc;
             } else {
                 const newItem = {
                     id: Date.now(),
                     name: name,
                     price: parseFloat(price),
+                    image: img,
                     description: desc
                 };
                 if (!selectedCategory.items) {
@@ -638,6 +694,21 @@
                 loadItems();
                 showMessage('Ürün silindi!', 'success');
             }
+        }
+        function moveItem(index, dir) {
+            const newIndex = index + dir;
+            if (!selectedCategory.items || newIndex < 0 || newIndex >= selectedCategory.items.length) return;
+            const moved = selectedCategory.items.splice(index, 1)[0];
+            selectedCategory.items.splice(newIndex, 0, moved);
+            loadItems();
+        }
+
+        function openLightbox(src) {
+            document.getElementById("lightboxImg").src = src;
+            document.getElementById("lightbox").style.display = "flex";
+        }
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
         }
 
         // Show message
